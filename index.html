@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <script type="text/javascript" src="./jquery-2.2.4.min.js"></script>
+      <script type="text/javascript" src="./bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+      
+  <style type="text/css">
+    .jumbotron {
+      padding: 15px;
+    }
+
+    h1 {
+      margin-top: 0px;
+    }
+    
+    h3 {
+      margin-top: 0px;
+    }
+
+    #development-times {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  </style>
+
+  <title>Coffee Roasting Timer by bhauff</title>
+
+  
+    
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+window.onload=function(){
+var start = 0;
+var stop = 0;
+var interval = 0;
+var fcInterval = 0;
+var timerRunning = 0;
+var firstCrack = 0;
+
+$("#start-button").click(function() {
+  if (interval == 0) {
+    start = new Date().getTime();
+  }
+
+  if (timerRunning == 1) {
+    timerRunning = 2;
+    stop = new Date().getTime();
+    $(this).text("Reset");
+    $(this).removeClass("btn-danger");
+    $(this).addClass("btn-warning");
+
+    clearInterval(interval);
+    clearInterval(fcInterval);
+  }
+  else if (timerRunning == 2) {
+  	start = 0;
+    stop = 0;
+    interval = 0;
+    fcInterval = 0;
+    timerRunning = 0;
+    firstCrack = 0;
+    $(this).text("Start");
+    $(this).removeClass("btn-warning");
+    $(this).addClass("btn-primary");
+    $("#first-crack").text("First Crack: ");
+    $("#development-time").text("Development Time: ");
+    $("#development-time").removeClass("label-warning");
+    $("#development-time").removeClass("label-danger");
+    $("#low").text("20.0%: ");
+    $("#mid").text("22.5%: ");
+    $("#high").text("25.0%: ");
+  }
+  else {
+    timerRunning = 1;
+    $(this).text("Stop");
+    $(this).removeClass("btn-primary");
+    $(this).addClass("btn-danger");
+
+    interval = setInterval(function() {
+      $(".jumbotron h1#timer").text(timeToString(new Date().getTime() - start));
+    }, 15)
+  }
+});
+
+$("#first-crack-button").click(function() {
+  if (start != 0) {
+    firstCrack = new Date().getTime();
+    $("#first-crack").addClass("label-success");
+    $("#first-crack").text("First Crack: " + timeToString(firstCrack - start));
+    $("#firstCrackButtons").toggle();
+    $("#development-time").removeClass("label-warning");
+    $("#development-time").removeClass("label-danger");
+
+    fcInterval = setInterval(function() {
+      var firstCrackMillis = firstCrack - start;
+      var firstCrackSeconds = Math.floor(firstCrackMillis / 1000);
+      var currentTimeMillis = new Date().getTime() - start;
+      var currentTimeSeconds = Math.floor(currentTimeMillis / 1000);
+      var developmentTime = ((1 - (firstCrackSeconds / currentTimeSeconds)) * 100).toFixed(2);
+      
+      $("#development-time").text("Development Time: " + developmentTime);
+      if (developmentTime > 15) {
+      	$("#development-time").addClass("label-warning");
+      }
+      if (developmentTime > 20) {
+      	$("#development-time").addClass("label-danger");
+      }
+    }, 1000)
+
+    var developmentTimeMillis = firstCrack - start;
+    $("#low").text("20.0%: " + timeToString(developmentTimeMillis / .8));
+    $("#mid").text("22.5%: " + timeToString(developmentTimeMillis / .775));
+    $("#high").text("25.0%: " + timeToString(developmentTimeMillis / .75));
+  }
+});
+
+function timeToString(millis) {
+	millis = Math.round(millis);
+  var timeSeconds = Math.floor(millis / 1000);
+  var timeMinutes = Math.floor(timeSeconds / 60);
+  var timeMillis = millis.toString().slice(-3);
+
+  if (timeMillis < 10) {
+    timeMillis = "0" + timeMillis;
+  }
+  if (timeMillis > 999) {
+    timeMillis = "000";
+  }
+  if (timeSeconds > 59) {
+    timeSeconds = timeSeconds - (timeMinutes * 60);
+  }
+  if (timeSeconds < 10) {
+    timeSeconds = "0" + timeSeconds;
+  }
+  if (timeMinutes < 10) {
+    timeMinutes = "0" + timeMinutes;
+  }
+
+  return timeMinutes + ":" + timeSeconds + ":" + timeMillis;
+}
+
+}//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+  <div class="container">
+  <div class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://coffeeroastingtimer.github.io">Coffee Roasting Timer</a>
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <h1 id="timer">00:00:000</h1>
+    <p class="lead">Click "Start" when you drop the beans, and click "First Crack" once you have heard several good cracks together.</p>
+    <p>
+      <a class="btn btn-lg btn-primary" id="start-button">Start</a>
+      <a class="btn btn-lg btn-success" id="first-crack-button">First Crack</a>
+    </p>
+  </div>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Roast Details</h3>
+    </div>
+    <div class="panel-body">
+      <h3>
+        <span class="label label-primary" id="first-crack">First Crack: </span>
+      </h3>
+      <h3>
+        <span class="label label-primary" id="development-time">Development Time: </span>
+      </h3>
+    </div>
+    <div class="list-group" id="development-times">
+      <a href="http://fiddle.jshell.net/bhauff/bk7ncrwn/96/show/light/#" class="list-group-item" id="low">20.0%: </a>
+      <a href="http://fiddle.jshell.net/bhauff/bk7ncrwn/96/show/light/#" class="list-group-item" id="mid">22.5%: </a>
+      <a href="http://fiddle.jshell.net/bhauff/bk7ncrwn/96/show/light/#" class="list-group-item" id="high">25.5%: </a>
+    </div>
+  </div>
+</div>
+
+  
+
+
+
+
+</body></html>
