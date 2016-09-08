@@ -59,6 +59,9 @@ window.onload=function() {
       $("#development-time").removeClass("label-warning");
       $("#development-time").removeClass("label-danger");
   
+      if (fcInterval != 0) {
+        clearInterval(fcInterval); 
+      }
       fcInterval = setInterval(function() {
         var firstCrackMillis = firstCrack - start;
         var firstCrackSeconds = Math.floor(firstCrackMillis / 1000);
