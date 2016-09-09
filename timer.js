@@ -32,7 +32,7 @@ window.onload=function() {
       $(this).addClass("btn-primary");
       $(".jumbotron h1#timer").text("00:00:000");
       $("#first-crack").text("First Crack: ");
-      $("#development-time").text("Development Time: ");
+      $("#development-time").text("Development %: ");
       $("#development-time").removeClass("label-warning");
       $("#development-time").removeClass("label-danger");
       $("#low").text("20.0%: ");
@@ -69,7 +69,7 @@ window.onload=function() {
         var currentTimeSeconds = Math.floor(currentTimeMillis / 1000);
         var developmentTime = ((1 - (firstCrackSeconds / currentTimeSeconds)) * 100).toFixed(2);
   
-        $("#development-time").text("Development Time: " + developmentTime);
+        $("#development-time").text("Development %: " + developmentTime + "%");
         if (developmentTime > 15) {
           $("#development-time").addClass("label-warning");
         }
