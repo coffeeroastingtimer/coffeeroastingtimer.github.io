@@ -32,7 +32,7 @@ window.onload=function() {
       $(this).addClass("btn-primary");
       $(".jumbotron h1#timer").text("00:00");
       $("#first-crack").text("First Crack: ");
-      $("#development-time").text("Development %: ");
+      $("#development-time").text("Development: ");
       $("#development-time").removeClass("label-warning");
       $("#development-time").removeClass("label-danger");
       $("#lowest").text("15.0%: ");
