@@ -7,6 +7,10 @@
   margin-bottom: 5px;
 }
 
+.panel-body {
+	padding: 5px;
+}
+
 #bean {
 	width: 75%;
 }
