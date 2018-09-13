@@ -1,10 +1,14 @@
 .navbar {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .jumbotron {
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+#bean {
+	width: 75%;
 }
 
 h1 {
@@ -13,9 +17,4 @@ h1 {
 
 h3 {
   margin-top: 0px;
-}
-
-#development-times {
-  margin-left: 20px;
-  margin-right: 20px;
 }

@@ -30,11 +30,13 @@ window.onload=function() {
       $(this).text("Start");
       $(this).removeClass("btn-warning");
       $(this).addClass("btn-primary");
-      $(".jumbotron h1#timer").text("00:00:000");
+      $(".jumbotron h1#timer").text("00:00");
       $("#first-crack").text("First Crack: ");
       $("#development-time").text("Development %: ");
       $("#development-time").removeClass("label-warning");
       $("#development-time").removeClass("label-danger");
+      $("#lowest").text("15.0%: ");
+      $("#lower").text("17.5%: ");
       $("#low").text("20.0%: ");
       $("#mid").text("22.5%: ");
       $("#high").text("25.0%: ");
@@ -46,7 +48,7 @@ window.onload=function() {
   
       interval = setInterval(function() {
         $(".jumbotron h1#timer").text(timeToString(new Date().getTime() - start));
-      }, 15)
+      }, 100)
     }
   });
   
@@ -79,24 +81,36 @@ window.onload=function() {
       }, 1000)
   
       var developmentTimeMillis = firstCrack - start;
+      $("#lowest").text("15.0%: " + timeToString(developmentTimeMillis / .85));
+      $("#lower").text("17.5%: " + timeToString(developmentTimeMillis / .825));
       $("#low").text("20.0%: " + timeToString(developmentTimeMillis / .8));
       $("#mid").text("22.5%: " + timeToString(developmentTimeMillis / .775));
       $("#high").text("25.0%: " + timeToString(developmentTimeMillis / .75));
     }
   });
+
+  $("#calc-button").click(function() {
+    var greenWeight = $("#green-weight").val() || 0;
+    var roastWeight = $("#roast-weight").val() || 0;
+    $("#weight-loss").text("Weight Loss: " + calcWeightLoss(greenWeight, roastWeight) + "%");
+    $("#date-timestamp").text("Date: " + new moment().format('MMM Do YYYY, h:mm:ss a'));
+  });
+
+  function calcWeightLoss(greenWeight, roastWeight) {
+    var weightLoss = 0;
+
+    if (greenWeight != 0 && roastWeight !=0) {
+      weightLoss = 100*((greenWeight - roastWeight)/greenWeight);
+    }
+
+    return weightLoss.toFixed(2);
+  }
   
   function timeToString(millis) {
     millis = Math.round(millis);
     var timeSeconds = Math.floor(millis / 1000);
     var timeMinutes = Math.floor(timeSeconds / 60);
-    var timeMillis = millis.toString().slice(-3);
-  
-    if (timeMillis < 10) {
-      timeMillis = "0" + timeMillis;
-    }
-    if (timeMillis > 999) {
-      timeMillis = "000";
-    }
+
     if (timeSeconds > 59) {
       timeSeconds = timeSeconds - (timeMinutes * 60);
     }
@@ -107,6 +121,6 @@ window.onload=function() {
       timeMinutes = "0" + timeMinutes;
     }
   
-    return timeMinutes + ":" + timeSeconds + ":" + timeMillis;
+    return timeMinutes + ":" + timeSeconds;
   }
 }

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="jquery-2.2.4.min.js"></script>
   <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="moment.min.js"></script>
   <script type="text/javascript" src="timer.js"></script>
   <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="timer.css">
@@ -16,31 +17,75 @@
   <div class="container">
     <div class="navbar navbar-default">
       <div class="navbar-header">
-        <a class="navbar-brand" href="http://coffeeroastingtimer.github.io">Coffee Roasting Timer</a>
+        <a class="navbar-brand" href="http://coffeeroastingtimer.github.io">Coffee Roasting Timer v2</a>
       </div>
     </div>
   
     <div class="jumbotron">
-      <h1 id="timer">00:00:000</h1>
+      <h1 id="timer">00:00</h1>
       <p>
-        <a class="btn btn-lg btn-primary" id="start-button">Start</a>
-        <a class="btn btn-lg btn-success" id="first-crack-button">First Crack</a>
+        <a class="btn btn-md btn-primary" id="start-button">Start</a>
+        <a class="btn btn-md btn-success" id="first-crack-button">First Crack</a>
+        <a class="btn btn-md btn-primary" id="calc-button">Weight Loss</a>
       </p>
     </div>
   
     <div class="panel panel-primary">
       <div class="panel-body">
-        <h3>
+        <h4>
           <span class="label label-primary" id="first-crack">First Crack: </span>
-        </h3>
-        <h3>
-          <span class="label label-primary" id="development-time">Development %: </span>
-        </h3>
+        </h4>
+        <h4>
+          <span class="label label-primary" id="development-time">Development: </span>
+        </h4>
       </div>
-      <div class="list-group" id="development-times">
-        <a href="#" class="list-group-item" id="low">20.0%: </a>
-        <a href="#" class="list-group-item" id="mid">22.5%: </a>
-        <a href="#" class="list-group-item" id="high">25.5%: </a>
+      <div class="container" id="development-times">
+        <div class="row">
+          <div class="col-xs-6">
+            <label id="lowest">15.0%: </label>
+          </div>
+          <div class="col-xs-6">
+            <label id="lower">17.5%: </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <label id="low">20.0%: </label>
+          </div>
+          <div class="col-xs-6">
+            <label id="mid">22.5%: </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <label id="high">25.0%: </label>
+          </div>
+          <div class="col-xs-6"></div>
+        </div>
+      </div>
+      <div class="panel-body" id="roast-attributes">
+        <form class="roast-attributes">
+          <fieldset>
+            <p>
+              <label for="input">Bean:</label>
+              <input type="text" id="bean" width="35" placeholder="Panama Gesha">
+            </p>
+            <p>
+              <label for="green-weight">Green Weight:</label>
+              <input type="number" id="green-weight" placeholder="226">
+            </p>
+            <p>
+              <label for="roast-weight">Roast Weight:</label>
+              <input type="number" id="roast-weight" placeholder="190">
+            </p>
+            <p>
+              <label id="weight-loss">Weight Loss: 0.00%</label>
+            </p>
+            <p>
+              <label id="date-timestamp">Date: </label>
+            </p>
+          </fieldset>
+        </form>
       </div>
     </div>
   </div>
