@@ -1,7 +1,3 @@
-.navbar {
-  margin-bottom: 5px;
-}
-
 .jumbotron {
   padding: 5px;
   margin-bottom: 5px;
@@ -9,6 +5,10 @@
 
 .panel-body {
 	padding: 5px;
+}
+
+h4.stats {
+	margin-top: 0px;
 }
 
 .col-xs-4 {
