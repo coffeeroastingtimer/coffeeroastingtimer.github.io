@@ -40,6 +40,8 @@ window.onload=function() {
       $("#low").text("20.0%: ");
       $("#mid").text("22.5%: ");
       $("#high").text("25.0%: ");
+      $("#weight-loss").text("Weight Loss: ");
+      $("#date-timestamp").text("Date: ");
     } else {
       timerRunning = 1;
       $(this).text("Stop");
